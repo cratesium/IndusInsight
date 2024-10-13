@@ -5,11 +5,10 @@ import com.indusInsight.net.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 @RequestMapping("/user")
 @RestController
-public class UserConreoller {
+public class UserController {
     @Autowired
     UserServices userServices;
 
@@ -29,6 +28,11 @@ public class UserConreoller {
         User user1= userServices.CreateUser(user);
         return  user1;
     }
+    @PutMapping("/update/{id}")
+    public  User updateUser(@RequestBody User user, @PathVariable Integer id) throws  Exception{
+       return userServices.updateUser(user,id);
+    }
+
 
 
 

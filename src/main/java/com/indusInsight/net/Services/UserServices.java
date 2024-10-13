@@ -30,4 +30,26 @@ public class UserServices {
         }
         throw  new Exception("user with given id not present in Db");
      }
+
+     public User updateUser(User user ,Integer id) throws  Exception{
+        Optional<User> user1 = userRepository.findById(id);
+        if (user1.isEmpty())
+            throw  new Exception("user id you entered doesnt exist in the database ");
+        else {
+            if (user.getFirstName()!=null){
+                user1.get().setFirstName(user.getFirstName());
+            }
+            if (user.getLastName()!=null){
+                user1.get().setLastName(user.getLastName());
+            }
+            if (user.getEmail()!=null){
+                user1.get().setEmail(user.getEmail());
+            }
+            if (user.getPassword()!=null){
+                user1.get().setPassword(user.getPassword());
+            }
+        }
+        userRepository.save(user1.get());
+        return user1.get();
+     }
 }
