@@ -52,4 +52,13 @@ public class UserServices {
         userRepository.save(user1.get());
         return user1.get();
      }
+     public  String deleteUsers(Integer id) throws Exception{
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()==true){
+            throw  new Exception("User Not exists  with id "+id);
+        }
+        userRepository.deleteById(id);
+        return "user with id "+id+" deleted successfully";
+
+     }
 }
