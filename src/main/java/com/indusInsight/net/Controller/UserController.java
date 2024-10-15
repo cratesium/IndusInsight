@@ -9,34 +9,40 @@ import java.util.List;
 @RequestMapping("/user")
 @RestController
 public class UserController {
-    @Autowired
-    UserServices userServices;
 
+@Autowired
+UserServices userServices;
 
-    @GetMapping("/getall")
-      public List<User> getAllUsers(){
-        return userServices.getAllUser();
-    }
     @GetMapping("getbyid/{id}")
     public User getUserById(@PathVariable Integer id) throws Exception {
-    User user = userServices.findbyid(id);
+     User user = userServices.findUserById(id);
     return  user;
+    }
+
+    @GetMapping("getbyemail/{email}")
+    public  User findUserByMail(@PathVariable String email) throws Exception {
+        User user = userServices.findUserByEmail(email);
+        return user;
     }
 
     @PostMapping("/create")
     public  User createUser(@RequestBody User user){
-        User user1= userServices.CreateUser(user);
+        User user1= userServices.registerUser(user);
         return  user1;
     }
+
     @PutMapping("/update/{id}")
     public  User updateUser(@RequestBody User user, @PathVariable Integer id) throws  Exception{
        return userServices.updateUser(user,id);
     }
-    @DeleteMapping("/delete/{id}")
-    public String deleteUser(@PathVariable Integer id ) throws  Exception{
-        return userServices.deleteUsers(id);
 
+    @GetMapping("getall")
+    public List<User> findAll(){
+        return  userServices.getAll();
     }
+
+
+
 
 
 

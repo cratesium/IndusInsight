@@ -1,64 +1,17 @@
 package com.indusInsight.net.Services;
 
-import com.indusInsight.net.Repository.UserRepository;
 import com.indusInsight.net.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
-@Component
-public class UserServices {
+public interface UserServices {
 
-    @Autowired
-    UserRepository userRepository;
+    public User registerUser(User user);
+    public User findUserById(Integer id) throws Exception;
+    public User findUserByEmail(String email) throws Exception;
+    public  User followUser(Integer id1 ,Integer id2) throws  Exception;
+    public User updateUser(User user,Integer id) throws Exception;
+    public List<User>searchUser(String query);
 
-    public User CreateUser(User user){
-
-        User user1 = userRepository.save(user);
-        return  user1;
-    }
-     public List<User> getAllUser(){
-         List<User> list= userRepository.findAll();
-         return  list;
-     }
-     public  User findbyid(Integer id) throws Exception {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()){
-            return  user.get();
-        }
-        throw  new Exception("user with given id not present in Db");
-     }
-
-     public User updateUser(User user ,Integer id) throws  Exception{
-        Optional<User> user1 = userRepository.findById(id);
-        if (user1.isEmpty())
-            throw  new Exception("user id you entered doesnt exist in the database ");
-        else {
-            if (user.getFirstName()!=null){
-                user1.get().setFirstName(user.getFirstName());
-            }
-            if (user.getLastName()!=null){
-                user1.get().setLastName(user.getLastName());
-            }
-            if (user.getEmail()!=null){
-                user1.get().setEmail(user.getEmail());
-            }
-            if (user.getPassword()!=null){
-                user1.get().setPassword(user.getPassword());
-            }
-        }
-        userRepository.save(user1.get());
-        return user1.get();
-     }
-     public  String deleteUsers(Integer id) throws Exception{
-        Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty()==true){
-            throw  new Exception("User Not exists  with id "+id);
-        }
-        userRepository.deleteById(id);
-        return "user with id "+id+" deleted successfully";
-
-     }
+    List<User> getAll();
 }

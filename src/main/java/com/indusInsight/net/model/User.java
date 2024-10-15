@@ -3,6 +3,8 @@ package com.indusInsight.net.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+import java.util.List;
+
 @Entity
 public class User {
 
@@ -12,14 +14,38 @@ public class User {
     private String lastName;
     private String email;
     private  String password;
+    private List<Integer> followers;
+    private List<Integer> following;
 
-    public User(Integer id, String firstName, String lastName, String email, String password) {
+    public List<Integer> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<Integer> followers) {
+        this.followers = followers;
+    }
+
+    public List<Integer> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<Integer> following) {
+        this.following = following;
+    }
+
+    public User(Integer id, String firstName, String lastName, String email, String password, List<Integer> followers, List<Integer> following) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.followers = followers;
+        this.following = following;
     }
+
+
+
+
 
     public User() {
 
@@ -68,10 +94,13 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", followers=" + followers +
+                ", following=" + following +
                 '}';
     }
 }
