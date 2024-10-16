@@ -19,7 +19,7 @@ UserServices userServices;
     return  user;
     }
 
-    @GetMapping("getbyemail/{email}")
+    @GetMapping("getWithemail/{email}")
     public  User findUserByMail(@PathVariable String email) throws Exception {
         User user = userServices.findUserByEmail(email);
         return user;
